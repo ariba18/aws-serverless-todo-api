@@ -93,7 +93,6 @@ Every Lambda invocation is logged to CloudWatch, capturing `START`, `END`, and `
 
 This project uses **GitHub Actions** to automatically validate infrastructure changes on every push — running `terraform fmt`, `terraform validate`, and `terraform plan`. Applying changes is gated behind a manual trigger for controlled, deliberate deployments.
 
----
 
 ---
 ## Author : **Ariba Khan**
