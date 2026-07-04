@@ -4,7 +4,7 @@ A fully serverless REST API for managing todos — built on AWS Lambda, API Gate
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
                     [ Client / Postman ]
@@ -31,7 +31,7 @@ A fully serverless REST API for managing todos — built on AWS Lambda, API Gate
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Layer            | Technology              |
 |-------------------|--------------------------|
@@ -45,7 +45,7 @@ A fully serverless REST API for managing todos — built on AWS Lambda, API Gate
 
 ---
 
-## ✨ Highlights
+##  Highlights
 
 - **Fully serverless** — no servers to provision or manage, scales automatically with demand
 - **Infrastructure as Code** — the entire stack (19 AWS resources) is defined and provisioned through Terraform
@@ -55,7 +55,7 @@ A fully serverless REST API for managing todos — built on AWS Lambda, API Gate
 
 ---
 
-## 📡 API Design
+##  API Design
 
 | Method | Endpoint            | Description          |
 |--------|----------------------|-----------------------|
@@ -67,7 +67,7 @@ A fully serverless REST API for managing todos — built on AWS Lambda, API Gate
 
 ---
 
-## 📸 Testing
+##  Testing
 
 All five operations were tested end-to-end using Postman, verifying correct status codes and response payloads for every route.
 
@@ -81,7 +81,7 @@ All five operations were tested end-to-end using Postman, verifying correct stat
 
 ---
 
-## 📊 Monitoring
+##  Monitoring
 
 Every Lambda invocation is logged to CloudWatch, capturing `START`, `END`, and `REPORT` events with execution duration and memory usage — giving full visibility into runtime performance.
 
@@ -89,14 +89,12 @@ Every Lambda invocation is logged to CloudWatch, capturing `START`, `END`, and `
 
 ---
 
-## 🔄 CI/CD Pipeline
+##  CI/CD Pipeline
 
 This project uses **GitHub Actions** to automatically validate infrastructure changes on every push — running `terraform fmt`, `terraform validate`, and `terraform plan`. Applying changes is gated behind a manual trigger for controlled, deliberate deployments.
 
 ---
 
-## 👤 Author
+---
+## Author : **Ariba Khan**
 
-**Ariba**
-Cloud Engineering | DevOps | AWS
-GitHub: [github.com/ariba18](https://github.com/ariba18)
