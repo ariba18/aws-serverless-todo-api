@@ -6,13 +6,25 @@ A fully serverless REST API for managing todos — built on AWS Lambda, API Gate
 
 ## 🏗️ Architecture
 
-```mermaid
-flowchart LR
-    Client[Client / Postman] -->|HTTPS| APIGW[API Gateway]
-    APIGW -->|Invoke| Lambda[Lambda Function<br/>todo-api]
-    Lambda -->|Read/Write| DDB[(DynamoDB<br/>todos table)]
-    Lambda -->|Logs| CW[CloudWatch Logs]
-    IAM[IAM Role] -.->|Permissions| Lambda
+```
+                    [ Client / Postman ]
+                            |
+                         HTTPS
+                            |
+                  [ API Gateway (REST) ]
+                            |
+                       Invoke
+                            |
+              [ Lambda Function: todo-api ]
+                    /              \
+                   /                \
+        [ DynamoDB Table ]   [ CloudWatch Logs ]
+           - todos                 - Invocation logs
+                                    - Duration & memory metrics
+
+              (IAM Role grants least-privilege
+               access from Lambda to DynamoDB
+               and CloudWatch)
 ```
 
 **Flow:** A client request hits API Gateway, which invokes a Lambda function. The function performs the requested operation against a DynamoDB table and returns a response — with every invocation logged to CloudWatch for full observability.
@@ -53,41 +65,6 @@ flowchart LR
 | PUT    | `/todos/{id}`        | Update a todo        |
 | DELETE | `/todos/{id}`        | Delete a todo        |
 
-### Example — Create a Todo
-**Request:** `POST /todos`
-```json
-{
-  "title": "Buy groceries"
-}
-```
-
-**Response:**
-```json
-{
-  "id": "bdae23c9-b67b-4fb5-b328-eba51330ad8d",
-  "title": "Buy groceries",
-  "completed": false,
-  "created_at": "2026-07-03T13:52:48.786428"
-}
-```
-
-### Example — Update a Todo
-**Request:** `PUT /todos/{id}`
-```json
-{
-  "title": "Buy groceries and cook dinner",
-  "completed": true
-}
-```
-
-### Example — Delete a Todo
-**Response:**
-```json
-{
-  "message": "Todo deleted successfully"
-}
-```
-
 ---
 
 ## 📸 Testing
@@ -115,19 +92,6 @@ Every Lambda invocation is logged to CloudWatch, capturing `START`, `END`, and `
 ## 🔄 CI/CD Pipeline
 
 This project uses **GitHub Actions** to automatically validate infrastructure changes on every push — running `terraform fmt`, `terraform validate`, and `terraform plan`. Applying changes is gated behind a manual trigger for controlled, deliberate deployments.
-
----
-
-## 🎯 Design Decisions & Trade-offs
-
-- **Single Lambda for all routes** — chosen for simplicity and lower cold-start overhead vs. per-route functions; a natural next step would be splitting into per-operation functions for larger-scale APIs.
-- **DynamoDB over relational DB** — fits the access pattern (simple key-based lookups) and scales seamlessly without connection pooling concerns that come with Lambda + RDS.
-- **Terraform over console/CDK** — full reproducibility and version-controlled infrastructure changes.
-
-### Possible Future Improvements
-- Unit tests for Lambda handler logic
-- API key / usage plan for rate limiting
-- Custom domain with ACM certificate
 
 ---
 
