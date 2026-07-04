@@ -4,7 +4,7 @@ A fully serverless REST API for managing todos — built on AWS Lambda, API Gate
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 ```mermaid
 flowchart LR
@@ -19,7 +19,7 @@ flowchart LR
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Layer            | Technology              |
 |-------------------|--------------------------|
@@ -33,7 +33,7 @@ flowchart LR
 
 ---
 
-## ✨ Highlights
+##  Highlights
 
 - **Fully serverless** — no servers to provision or manage, scales automatically with demand
 - **Infrastructure as Code** — the entire stack (19 AWS resources) is defined and provisioned through Terraform
@@ -43,7 +43,7 @@ flowchart LR
 
 ---
 
-## 📡 API Design
+##  API Design
 
 | Method | Endpoint            | Description          |
 |--------|----------------------|-----------------------|
@@ -53,44 +53,9 @@ flowchart LR
 | PUT    | `/todos/{id}`        | Update a todo        |
 | DELETE | `/todos/{id}`        | Delete a todo        |
 
-### Example — Create a Todo
-**Request:** `POST /todos`
-```json
-{
-  "title": "Buy groceries"
-}
-```
-
-**Response:**
-```json
-{
-  "id": "bdae23c9-b67b-4fb5-b328-eba51330ad8d",
-  "title": "Buy groceries",
-  "completed": false,
-  "created_at": "2026-07-03T13:52:48.786428"
-}
-```
-
-### Example — Update a Todo
-**Request:** `PUT /todos/{id}`
-```json
-{
-  "title": "Buy groceries and cook dinner",
-  "completed": true
-}
-```
-
-### Example — Delete a Todo
-**Response:**
-```json
-{
-  "message": "Todo deleted successfully"
-}
-```
-
 ---
 
-## 📸 Testing
+##  Testing
 
 All five operations were tested end-to-end using Postman, verifying correct status codes and response payloads for every route.
 
@@ -104,7 +69,7 @@ All five operations were tested end-to-end using Postman, verifying correct stat
 
 ---
 
-## 📊 Monitoring
+##  Monitoring
 
 Every Lambda invocation is logged to CloudWatch, capturing `START`, `END`, and `REPORT` events with execution duration and memory usage — giving full visibility into runtime performance.
 
@@ -112,26 +77,13 @@ Every Lambda invocation is logged to CloudWatch, capturing `START`, `END`, and `
 
 ---
 
-## 🔄 CI/CD Pipeline
+##  CI/CD Pipeline
 
 This project uses **GitHub Actions** to automatically validate infrastructure changes on every push — running `terraform fmt`, `terraform validate`, and `terraform plan`. Applying changes is gated behind a manual trigger for controlled, deliberate deployments.
 
 ---
 
-## 🎯 Design Decisions & Trade-offs
-
-- **Single Lambda for all routes** — chosen for simplicity and lower cold-start overhead vs. per-route functions; a natural next step would be splitting into per-operation functions for larger-scale APIs.
-- **DynamoDB over relational DB** — fits the access pattern (simple key-based lookups) and scales seamlessly without connection pooling concerns that come with Lambda + RDS.
-- **Terraform over console/CDK** — full reproducibility and version-controlled infrastructure changes.
-
-### Possible Future Improvements
-- Unit tests for Lambda handler logic
-- API key / usage plan for rate limiting
-- Custom domain with ACM certificate
-
----
-
-## 👤 Author
+##  Author
 
 **Ariba**
 Cloud Engineering | DevOps | AWS
